@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,6 +55,13 @@ public class AdminQuizController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Quiz> updateQuiz(@PathVariable Long id, @RequestBody Quiz updatedQuiz) throws Exception {
+        Quiz quiz = quizService.updateQuiz(id, updatedQuiz);
+        return new ResponseEntity<>(quiz, HttpStatus.OK);
     }
     
     @DeleteMapping("/{id}")

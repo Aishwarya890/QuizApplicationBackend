@@ -106,4 +106,10 @@ public class UserService {
     public User updateUser(User user) {
         return userRepository.save(user);
     }
+
+
+	public Optional<User> findById(Long userId) {
+		// TODO Auto-generated method stub
+		return userRepository.findById(userId);
+	}
 }

@@ -15,7 +15,7 @@ public class QuizService {
     @Autowired
     private QuizRepository quizRepository;
 
-    public Quiz createQuiz(String subject, String description, LocalDateTime deadline) {
+    public Quiz createQuiz(String subject, LocalDateTime deadline) {
         Quiz quiz = new Quiz();
         quiz.setSubject(subject);
         
@@ -29,7 +29,7 @@ public class QuizService {
     
     public List<Quiz> getScheduledQuizzes() {
         
-        LocalDateTime currentDate = null;
+        LocalDateTime currentDate = LocalDateTime.now();
 		return quizRepository.findByDeadlineAfter(currentDate);
     }
     
@@ -37,6 +37,10 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
+    public Optional<Quiz> findById(Long quizId) {
+        return quizRepository.findById(quizId);
+    }
+   
     public List<Quiz> findAll() {
         return quizRepository.findAll();
     }
@@ -46,7 +50,24 @@ public class QuizService {
         return optionalQuiz.orElse(null); // Return the quiz if found, otherwise return null
     }
     
+    public Quiz updateQuiz(Long id, Quiz updatedQuiz) throws Exception {
+        Optional<Quiz> optionalQuiz = quizRepository.findById(id);
+        if (optionalQuiz.isPresent()) {
+            Quiz existingQuiz = optionalQuiz.get();
+            existingQuiz.setSubject(updatedQuiz.getSubject());
+            existingQuiz.setDeadline(updatedQuiz.getDeadline());
+            existingQuiz.setAccessCode(updatedQuiz.getAccessCode());
+            existingQuiz.setQuestions(updatedQuiz.getQuestions());
+            existingQuiz.setOptions(updatedQuiz.getOptions());
+            existingQuiz.setCorrectAnswers(updatedQuiz.getCorrectAnswers());
+            return quizRepository.save(existingQuiz);
+        } else {
+            throw new Exception("Quiz not found with id " + id);
+        }
+    }
     public void deleteQuiz(Long id) {
         quizRepository.deleteById(id);
     }
+    
+    
 }

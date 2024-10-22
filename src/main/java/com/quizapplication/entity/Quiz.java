@@ -14,8 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+
 @NoArgsConstructor
 @AllArgsConstructor
 public class Quiz {
@@ -24,12 +23,69 @@ public class Quiz {
     private Long id;
     private String subject;
     private LocalDateTime deadline;
+    private String accessCode;
     private List<String> correctAnswers;
     @ElementCollection
     private List<String> questions;
 
     @ElementCollection
     private List<List<String>> options;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public LocalDateTime getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(LocalDateTime deadline) {
+		this.deadline = deadline;
+	}
+
+	public String getAccessCode() {
+		return accessCode;
+	}
+
+	public void setAccessCode(String accessCode) {
+		this.accessCode = accessCode;
+	}
+
+	public List<String> getCorrectAnswers() {
+		return correctAnswers;
+	}
+
+	public void setCorrectAnswers(List<String> correctAnswers) {
+		this.correctAnswers = correctAnswers;
+	}
+
+	public List<String> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<String> questions) {
+		this.questions = questions;
+	}
+
+	public List<List<String>> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<List<String>> options) {
+		this.options = options;
+	}
 
 
     // Getters and Setters

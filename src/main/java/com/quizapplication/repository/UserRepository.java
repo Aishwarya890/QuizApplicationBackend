@@ -8,6 +8,6 @@ import com.quizapplication.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
-
+    Optional<User> findById(Long userId);
 	boolean existsByEmail(String email);
 }

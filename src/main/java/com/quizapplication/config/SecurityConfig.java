@@ -50,7 +50,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/auth/**", "/quizzes/**").permitAll()  // Public endpoints
+                .requestMatchers("/auth/**", "/quizzes/**","/api/user/**").permitAll()  // Public endpoints
                 .requestMatchers("/api/admin/quizzes/**","/admin/requests/**").permitAll()
 //                .requestMatchers("/admin/requests/**").hasRole("ADMIN") // Restrict admin paths to ADMIN role
                 .anyRequest().authenticated()  // All other endpoints require authentication
