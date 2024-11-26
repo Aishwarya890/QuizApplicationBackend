@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.quizapplication.DTO.QuizAccessRequest;
 import com.quizapplication.DTO.QuizDTO;
+import com.quizapplication.DTO.QuizSubmissionDto;
 import com.quizapplication.entity.Quiz;
 import com.quizapplication.entity.QuizSubmissionRequest;
 import com.quizapplication.entity.User;
 import com.quizapplication.entity.UserQuiz;
+import com.quizapplication.repository.UserAnswersRepository;
 import com.quizapplication.service.QuizService;
 import com.quizapplication.service.UserAnswersService;
 import com.quizapplication.service.UserQuizService;
@@ -44,7 +46,7 @@ public class QuizController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        Quiz createdQuiz = quizService.createQuiz(quizDTO.getSubject(), quizDTO.getDeadline());
+        Quiz createdQuiz = quizService.createQuiz(quizDTO.getSubject(), quizDTO.getStartDateTime(),quizDTO.getEndDateTime());
         return ResponseEntity.ok(createdQuiz);
     }
 
@@ -65,20 +67,16 @@ public class QuizController {
     private UserService userService;
     
   
-    
-    
+
     @PostMapping("/submit")
     public ResponseEntity<String> submitQuiz(@RequestBody QuizSubmissionRequest request) {
         Long userId = request.getUserId();
         Long quizId = request.getQuizId();
         
-        // Save the user's answers
-        userAnswersService.saveAnswers(quizId, userId, request.getAnswers());
-        
         // Fetch the existing UserQuiz record
-        UserQuiz userQuiz = userQuizService.findByUserIdAndQuizId(userId, quizId); // Ensure this method exists to retrieve the record
-        System.out.println("UserQuiz __"+userQuiz);
-       
+        UserQuiz userQuiz = userQuizService.findByUserIdAndQuizId(userId, quizId);
+        
+        // Ensure this method exists to retrieve the record
         if (userQuiz == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or Quiz not found");
         }
@@ -88,6 +86,9 @@ public class QuizController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Quiz has already been submitted");
         }
 
+        // Save the user's answers only if the quiz has not been submitted
+        userAnswersService.saveAnswers(quizId, userId, request.getAnswers());
+        
         // Mark the quiz as submitted
         userQuiz.setHasSubmitted(true);
         
@@ -96,43 +97,10 @@ public class QuizController {
 
         return ResponseEntity.ok("Quiz submitted successfully");
     }
-    
-    
-    
-    
 
     
-
-//    @PostMapping("/submit")
-//    public ResponseEntity<String> submitQuiz(@RequestBody QuizSubmissionRequest request) {
-//        Long userId = request.getUserId();
-//        Long quizId = request.getQuizId();
-//
-//        // Fetch the existing UserQuiz record before saving answers
-//        UserQuiz userQuiz = userQuizService.findByUserIdAndQuizId(userId, quizId); // Ensure this method exists to retrieve the record
-//        if (userQuiz == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or Quiz not found");
-//        }
-//
-//        // Check if the quiz has already been submitted
-//        if (userQuiz.isHasSubmitted()) {
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Quiz has already been submitted");
-//        }
-//
-//        // Save the user's answers
-//        userAnswersService.saveAnswers(quizId, userId, request.getAnswers());
-//
-//        // Mark the quiz as submitted
-//        userQuiz.setHasSubmitted(true);
-//
-//        // Save the updated UserQuiz record
-//        userQuizService.updateUserQuiz(userQuiz); // Ensure this method updates the record properly
-//
-//        return ResponseEntity.ok("Quiz submitted successfully");
-//    }
-
-
     
+   
     @Autowired
     private UserQuizService userQuizService;
     @PostMapping("/verify-quiz-access")
@@ -161,5 +129,7 @@ public class QuizController {
 
         return ResponseEntity.ok("Access granted");
     }
+    
+   
 
 }

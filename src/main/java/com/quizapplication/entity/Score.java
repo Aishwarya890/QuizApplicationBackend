@@ -1,31 +1,36 @@
 package com.quizapplication.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class UserQuiz {
+@AllArgsConstructor
+@NoArgsConstructor
+
+public class Score {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private User user; // Reference to the user
+    @JoinColumn(name = "user_id", nullable = false)  // Foreign key to User
+    private User user;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    private Quiz quiz; // Reference to the quiz
+    @ManyToOne
+    @JoinColumn(name = "quiz_id", nullable = false)  // Foreign key to Quiz
+    private Quiz quiz;
 
-    private boolean hasSubmitted; // Track if the user has submitted the quiz
+    private int score;
+
+    // Getters and Setters
 }
+

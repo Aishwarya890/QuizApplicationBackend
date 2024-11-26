@@ -46,6 +46,11 @@ public class AdminRequestService {
     public List<AdminRequest> getPendingRequestsForUser(User user) {
         return adminRequestRepository.findByUserAndStatus(user, RequestStatus.PENDING);
     }
+    
+ // New method to get all request history (approved and rejected)
+    public List<AdminRequest> getAllRequestHistory() {
+        return adminRequestRepository.findAll(); // Fetch all requests from the database
+    }
 
 	
 }

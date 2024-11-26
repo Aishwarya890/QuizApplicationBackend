@@ -39,18 +39,7 @@ public class AuthController {
         }
     }
 
-//    @PostMapping("/login")
-//
-//    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
-//        // Logic to authenticate user and check roles
-//        User user = userService.authenticate(loginDTO.getEmail(), loginDTO.getPassword());
-//        
-//        if (user != null) {
-//        	return ResponseEntity.ok(new LoginResponse(user.isAdmin(), "Login successful!"));
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed!");
-//        }
-//    }
+
     @Autowired
     private AdminRequestService adminRequestService;
 

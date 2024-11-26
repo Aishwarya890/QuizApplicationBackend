@@ -8,12 +8,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class QuizDTO {
     private String subject;
     private String description;
-    private LocalDateTime deadline;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
+    
 	
     
     

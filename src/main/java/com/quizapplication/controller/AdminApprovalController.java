@@ -58,6 +58,11 @@ public class AdminApprovalController {
             return ResponseEntity.status(500).body("An error occurred while processing the request.");
         }
     }
+    
+    @GetMapping("/history")
+    public List<AdminRequest> getAllRequestHistory() {
+        return adminRequestService.getAllRequestHistory();
+    }
 
 }
 

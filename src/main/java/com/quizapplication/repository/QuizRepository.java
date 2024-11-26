@@ -9,5 +9,5 @@ import com.quizapplication.entity.Quiz;
 
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
     List<Quiz> findAll();
-    List<Quiz> findByDeadlineAfter(LocalDateTime currentDate);
+//    List<Quiz> findByDeadlineAfter(LocalDateTime currentDate);
 }
