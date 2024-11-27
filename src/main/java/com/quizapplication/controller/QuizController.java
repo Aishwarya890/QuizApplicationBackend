@@ -33,7 +33,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/quizzes")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = { "http://localhost:3000","https://quizapplicationbackend-production.up.railway.app"})
 public class QuizController {
     @Autowired
     private QuizService quizService;

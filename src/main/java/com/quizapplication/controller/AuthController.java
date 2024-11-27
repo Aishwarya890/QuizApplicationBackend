@@ -23,7 +23,7 @@ import com.quizapplication.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","https://quizapplicationbackend-production.up.railway.app"})
 public class AuthController {
     @Autowired
     private UserService userService;

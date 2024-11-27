@@ -19,7 +19,7 @@ import com.quizapplication.service.QuizService;
 import com.quizapplication.service.ScoreService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","https://quizapplicationbackend-production.up.railway.app"})
 @RequestMapping("/api/scores")
 public class ScoreController {
 

@@ -13,7 +13,7 @@ import com.quizapplication.service.UserService;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","https://quizapplicationbackend-production.up.railway.app"})
 @RequestMapping("/admin/requests")
 //@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminApprovalController {

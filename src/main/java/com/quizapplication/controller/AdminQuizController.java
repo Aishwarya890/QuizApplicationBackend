@@ -29,7 +29,7 @@ import com.quizapplication.service.ScoreService;
 import com.quizapplication.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","https://quizapplicationbackend-production.up.railway.app"})
 @RequestMapping("/api/admin/quizzes")
 public class AdminQuizController {
     @Autowired

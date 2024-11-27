@@ -25,7 +25,7 @@ import com.quizapplication.service.UserQuizService;
 import com.quizapplication.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","https://quizapplicationbackend-production.up.railway.app"})
 @RequestMapping("/api/user")
 public class UserQuizController {
 
