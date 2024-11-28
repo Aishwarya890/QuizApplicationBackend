@@ -1,6 +1,7 @@
 package com.quizapplication.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -65,5 +66,15 @@ public class AdminApprovalController {
         return adminRequestService.getAllRequestHistory();
     }
 
+    
+    @PostMapping("/reject/{id}")
+    public ResponseEntity<String> rejectRequest(@PathVariable Long id) throws Exception {
+        try {
+            adminRequestService.rejectRequest(id);
+            return ResponseEntity.ok("Request rejected successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Request not found.");
+        }
+    }
 }
 
